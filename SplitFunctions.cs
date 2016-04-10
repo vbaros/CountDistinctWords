@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -17,7 +16,7 @@ namespace CountDistinctWords
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string[] SplitToWords(string text)
+        public static string[] SplitToWordsNormal(string text)
         {
             string[] distinctWords = text.Split(' ', '.', ',', '!', '?'); // the list is no full. This is just a test.
             return distinctWords;
@@ -29,7 +28,7 @@ namespace CountDistinctWords
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string[] SplitToWordsDistinct(string text)
+        public static string[] SplitToWordsNormalDistinct(string text)
         {
             string[] distinctWords = text.Split(' ', '.', ',', '!', '?', '\"').Distinct().ToArray();
             return distinctWords;

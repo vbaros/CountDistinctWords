@@ -47,8 +47,8 @@ namespace CountDistinctWords
 
             PrintResults(functions, SplitFunctions.SplitToWordsReplace, file);
             PrintResults(functions, SplitFunctions.SplitWithLinq, file);
-            PrintResults(functions, SplitFunctions.SplitToWords, file);
-            PrintResults(functions, SplitFunctions.SplitToWordsDistinct, file);
+            PrintResults(functions, SplitFunctions.SplitToWordsNormal, file);
+            PrintResults(functions, SplitFunctions.SplitToWordsNormalDistinct, file);
             PrintResults(functions, SplitFunctions.SplitToWordsRegex, file);
 
             //Console.WriteLine("Press any key to continue.");
