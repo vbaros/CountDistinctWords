@@ -7,23 +7,39 @@ using System.Text.RegularExpressions;
 namespace CountDistinctWords
 {
     /// <summary>
-    /// Splits the words (space as a separator).
-    /// Trims the Punctuation
+    /// Splits a line of text to separate words (for a given separator).
     /// </summary>
     public static class SplitFunctions
     {
+        /// <summary>
+        /// Split to words by using a given set of characters. If characters are knows
+        /// this method could be the fastest.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string[] SplitToWords(string text)
         {
-            string[] distinctWords = text.Split(' ', '.', ',', '!', '?', '\"'); // the list might not be full. This is just a test
+            string[] distinctWords = text.Split(' ', '.', ',', '!', '?'); // the list is no full. This is just a test.
             return distinctWords;
         }
 
-        public static string[] SplitToWordsDistinct(string text) // slower
+        /// <summary>
+        /// Same as default SplitToWords function. The difference is it calls the distinct on resulting word list.
+        /// It turns out, the method is slower then calling Distinct() on the whole word list at the end.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string[] SplitToWordsDistinct(string text)
         {
             string[] distinctWords = text.Split(' ', '.', ',', '!', '?', '\"').Distinct().ToArray();
             return distinctWords;
         }
 
+        /// <summary>
+        /// Splits to words using Regex function. Regex is slow for splitting.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string[] SplitToWordsRegex(string text)
         {
             //
@@ -35,12 +51,23 @@ namespace CountDistinctWords
             // \W+    one or more non-word characters together
         }
 
+        /// <summary>
+        /// Splits then removes special scharacters from the words using StringBuilder
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string[] SplitToWordsReplace(string text)
         {
-            //return text.RemoveSpecialCharacters().Split(' '); // doesn't work. It will remove spaces as well -> Split will not work
+            //return text.RemoveSpecialCharacters().Split(' '); // doesn't work. It will remove spaces as well so splitting will not work
             return text.Split().Select(word => word.RemoveSpecialCharacters()).ToArray();
         }
 
+        /// <summary>
+        /// Takes punctuation characters and trims them from the words after splitting.
+        /// In most cases the fastest
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string[] SplitWithLinq(string text)
         {
             var punctuation = text.Where(Char.IsPunctuation).Distinct().ToArray();
